@@ -18,11 +18,11 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "InfluenceMap — Find influencers your competitors already trust",
   description:
-    "InfluenceMap crawls brand pages across Instagram, YouTube, TikTok & X to surface creators who've done sponsored content in your product category.",
+    "InfluenceMap crawls brand pages across Instagram, YouTube & X to surface creators who've done sponsored content in your product category.",
   openGraph: {
     title: "InfluenceMap — Find influencers your competitors already trust",
     description:
-      "InfluenceMap crawls brand pages across Instagram, YouTube, TikTok & X to surface creators who've done sponsored content in your product category.",
+      "InfluenceMap crawls brand pages across Instagram, YouTube & X to surface creators who've done sponsored content in your product category.",
     type: "website",
   },
 };

@@ -43,7 +43,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-lg sm:text-xl text-text-secondary mb-8 max-w-xl mx-auto lg:mx-0"
           >
-            InfluenceMap crawls brand pages across Instagram, YouTube, TikTok & X
+            InfluenceMap crawls brand pages across Instagram, YouTube & X
             to surface creators who&apos;ve done sponsored content in your product
             category. Stop cold-DMing. Start with proof.
           </motion.p>
