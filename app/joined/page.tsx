@@ -1,18 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
 
-function getRandomPosition() {
-  return Math.floor(Math.random() * 200) + 2400;
-}
-
-export default function JoinedPage() {
+function JoinedContent() {
   const prefersReducedMotion = useReducedMotion();
-
-  const positionRef = useRef(getRandomPosition());
-  const position = positionRef.current;
+  const searchParams = useSearchParams();
+  const position = searchParams.get("p") ? Number(searchParams.get("p")) : null;
 
   const shareText = encodeURIComponent(
     "I just joined the @InfluenceMap waitlist \u2014 an AI tool that finds influencers by crawling competitor brand deals. Check it out:"
@@ -74,20 +70,22 @@ export default function JoinedPage() {
           InfluenceMap with your network to move up the queue.
         </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: prefersReducedMotion ? 0 : 1.1 }}
-          className="font-mono text-2xl text-brand-red font-bold mb-8"
-        >
-          Your position: #{position.toLocaleString()}
-        </motion.p>
+        {position && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: prefersReducedMotion ? 0 : 1.1 }}
+            className="font-mono text-2xl text-brand-red font-bold mb-8"
+          >
+            Your position: #{position.toLocaleString()}
+          </motion.p>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: prefersReducedMotion ? 0 : 1.2 }}
-          className="flex flex-col sm:flex-row gap-3 justify-center mb-6"
+          className={`flex flex-col sm:flex-row gap-3 justify-center ${position ? "" : "mt-6"}`}
         >
           <a
             href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
@@ -110,5 +108,13 @@ export default function JoinedPage() {
         </motion.div>
       </div>
     </main>
+  );
+}
+
+export default function JoinedPage() {
+  return (
+    <Suspense>
+      <JoinedContent />
+    </Suspense>
   );
 }

@@ -38,6 +38,8 @@ export default function WaitlistForm({ variant }: WaitlistFormProps) {
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json();
+
       if (res.status === 409) {
         setStatus("success");
         setTimeout(() => router.push("/joined"), prefersReducedMotion ? 0 : 1500);
@@ -45,14 +47,14 @@ export default function WaitlistForm({ variant }: WaitlistFormProps) {
       }
 
       if (!res.ok) {
-        const data = await res.json();
         setError(data.error || "Something went wrong");
         setStatus("error");
         return;
       }
 
       setStatus("success");
-      setTimeout(() => router.push("/joined"), prefersReducedMotion ? 0 : 1500);
+      const position = data.position || "";
+      setTimeout(() => router.push(`/joined${position ? `?p=${position}` : ""}`), prefersReducedMotion ? 0 : 1500);
     } catch {
       setError("Network error. Please try again.");
       setStatus("error");
