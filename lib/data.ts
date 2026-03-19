@@ -1,9 +1,8 @@
-export type Platform = "YouTube" | "Instagram" | "TikTok" | "X";
+export type Platform = "YouTube" | "Instagram" | "X";
 
 export const platformColors: Record<Platform, string> = {
   YouTube: "#FF0000",
   Instagram: "#E4405F",
-  TikTok: "#00F2EA",
   X: "#1DA1F2",
 };
 
@@ -64,7 +63,7 @@ export const influencers: Influencer[] = [
     avatarColor: "#EC4899",
     avatarImage: "/avatars/ijustine.jpg",
     followers: "7.1M",
-    platforms: ["YouTube", "TikTok", "Instagram"],
+    platforms: ["YouTube", "Instagram"],
     engagement: "4.5%",
     score: 91,
     pastBrands: ["Apple", "Intel", "Razer", "Adobe"],
@@ -141,17 +140,6 @@ export const platformCoverage: PlatformCoverageItem[] = [
       "Description affiliate links",
       "Branded integrations",
       "Product placements",
-    ],
-  },
-  {
-    name: "TikTok",
-    platform: "TikTok",
-    color: "#00F2EA",
-    detections: [
-      "Branded content toggles",
-      "Hashtag sponsorships",
-      "Duet collabs",
-      "Creator marketplace posts",
     ],
   },
   {

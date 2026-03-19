@@ -49,18 +49,18 @@ export default function HowItWorks() {
           </h2>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {steps.map((step, i) => (
             <ScrollReveal key={step.number} delay={i * 0.15}>
-              <div className="p-6 rounded-xl bg-surface border border-surface-border">
-                <span className="font-mono text-brand-red text-sm font-bold">
+              <div className="p-5 rounded-lg bg-surface border border-surface-border">
+                <span className="font-mono text-brand-red text-xs font-bold">
                   {step.number}
                 </span>
-                <div className="text-text-muted mt-3 mb-4">{step.icon}</div>
-                <h3 className="text-lg font-semibold text-text-primary mb-2">
+                <div className="text-text-muted mt-2 mb-3">{step.icon}</div>
+                <h3 className="text-base font-semibold text-text-primary mb-1.5">
                   {step.title}
                 </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
+                <p className="text-text-secondary text-xs leading-relaxed">
                   {step.description}
                 </p>
               </div>

@@ -14,7 +14,7 @@ function JoinedContent() {
     "I just joined the @InfluenceMap waitlist \u2014 an AI tool that finds influencers by crawling competitor brand deals. Check it out:"
   );
 
-  const shareUrl = encodeURIComponent("https://influencemap.com");
+  const shareUrl = encodeURIComponent("https://influencemap.vercel.app");
 
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
