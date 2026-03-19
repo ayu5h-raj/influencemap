@@ -71,7 +71,7 @@ export default function WaitlistForm({ variant }: WaitlistFormProps) {
           </p>
         </>
       )}
-      <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className={`flex gap-3 max-w-md ${variant === "bottom" ? "mx-auto" : ""}`}>
         <label htmlFor={inputId} className="sr-only">
           Email address
         </label>

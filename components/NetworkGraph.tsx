@@ -182,6 +182,38 @@ function BrandNode({ node, delay }: { node: GraphNode; delay: number }) {
   );
 }
 
+const competitorLogos: Record<string, React.ReactNode> = {
+  // Dell logo — tilted square with "DELL" text
+  dell: (
+    <g>
+      <circle cx="0" cy="0" r="24" fill="#141417" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+      <g transform="translate(-10, -5) scale(0.85)">
+        <text
+          x="12"
+          y="12"
+          textAnchor="middle"
+          fill="#007DB8"
+          style={{ fontSize: "12px", fontWeight: 700, fontFamily: "var(--font-space-grotesk)", letterSpacing: "-0.5px" }}
+        >
+          DELL
+        </text>
+      </g>
+    </g>
+  ),
+  // Apple logo
+  apple: (
+    <g>
+      <circle cx="0" cy="0" r="24" fill="#141417" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+      <g transform="translate(-8, -10) scale(0.65)">
+        <path
+          d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.81-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
+          fill="#A2AAAD"
+        />
+      </g>
+    </g>
+  ),
+};
+
 function CompetitorNode({ node, delay }: { node: GraphNode; delay: number }) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -195,19 +227,8 @@ function CompetitorNode({ node, delay }: { node: GraphNode; delay: number }) {
           : { duration: 0.5, delay, ease: "easeOut" }
       }
     >
-      <circle
-        cx={node.x}
-        cy={node.y}
-        r="24"
-        fill="#141417"
-        stroke="rgba(255,255,255,0.12)"
-        strokeWidth="1.5"
-      />
-      {/* People/network icon */}
-      <g transform={`translate(${node.x - 9}, ${node.y - 9})`}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A0A09A" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-        </svg>
+      <g transform={`translate(${node.x}, ${node.y})`}>
+        {competitorLogos[node.id] || competitorLogos.dell}
       </g>
       <text
         x={node.x}
