@@ -274,7 +274,7 @@ Wraps children in `motion.div` with `useInView` trigger. Props: `delay` (number)
 - Checks for duplicates via `lib/waitlist.ts`
 - Appends to `waitlist.json` in project root
 - **Response codes:**
-  - 200: `{ success: true, position: number }` — email added or already exists
+  - 200: `{ success: true, position: number }` — email added successfully
   - 400: `{ error: "Invalid email format" }` — validation failed
   - 409: `{ error: "Email already registered" }` — duplicate submission
   - 500: `{ error: "Something went wrong" }` — file write failure
