@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
 
@@ -8,37 +8,17 @@ function getRandomPosition() {
   return Math.floor(Math.random() * 200) + 2400;
 }
 
-function getRandomCode() {
-  return Math.random().toString(36).substring(2, 8);
-}
-
 export default function JoinedPage() {
   const prefersReducedMotion = useReducedMotion();
-  const [copied, setCopied] = useState(false);
 
   const positionRef = useRef(getRandomPosition());
   const position = positionRef.current;
-
-  const codeRef = useRef(getRandomCode());
-  const referralCode = codeRef.current;
-
-  const referralLink = `influencemap.com/ref/${referralCode}`;
 
   const shareText = encodeURIComponent(
     "I just joined the @InfluenceMap waitlist \u2014 an AI tool that finds influencers by crawling competitor brand deals. Check it out:"
   );
 
   const shareUrl = encodeURIComponent("https://influencemap.com");
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(`https://${referralLink}`);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard API unavailable (non-HTTPS or unsupported browser)
-    }
-  };
 
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
@@ -127,24 +107,6 @@ export default function JoinedPage() {
               Share on LinkedIn
             </Button>
           </a>
-          <Button
-            variant="secondary"
-            size="md"
-            onClick={handleCopy}
-            className="w-full sm:w-auto"
-          >
-            {copied ? "Copied!" : "Copy link"}
-          </Button>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: prefersReducedMotion ? 0 : 1.3 }}
-          className="bg-surface border border-surface-border rounded-lg p-3"
-        >
-          <p className="text-text-muted text-xs mb-1">Your referral link</p>
-          <p className="font-mono text-sm text-text-secondary">{referralLink}</p>
         </motion.div>
       </div>
     </main>
