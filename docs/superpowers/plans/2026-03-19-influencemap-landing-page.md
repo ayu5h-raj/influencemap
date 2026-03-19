@@ -143,9 +143,6 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .animate-gradient {
-    animation: none !important;
-  }
 }
 ```
 
@@ -400,7 +397,6 @@ export const platformCoverage: PlatformCoverageItem[] = [
       "Sponsored tweets",
       "Brand ambassador threads",
       "Product launch tweets",
-      "Affiliate promotions",
     ],
   },
 ];
@@ -1387,7 +1383,7 @@ export default function ProductMockup() {
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red ${
                       activeCategory === cat
                         ? "bg-brand-red text-white"
                         : "bg-white/5 text-text-secondary hover:bg-white/10"
@@ -1422,7 +1418,7 @@ export default function ProductMockup() {
                   <button
                     key={opt}
                     onClick={() => setActiveSort(opt)}
-                    className={`px-2.5 py-1 rounded text-xs transition-colors ${
+                    className={`px-2.5 py-1 rounded text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red ${
                       activeSort === opt
                         ? "bg-white/10 text-text-primary"
                         : "text-text-muted hover:text-text-secondary"
@@ -1803,14 +1799,16 @@ git commit -m "feat: add Footer component"
 
 ```tsx
 // app/page.tsx
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
-import HowItWorks from "@/components/HowItWorks";
-import ProductMockup from "@/components/ProductMockup";
-import PlatformCoverage from "@/components/PlatformCoverage";
-import Metrics from "@/components/Metrics";
-import UseCases from "@/components/UseCases";
-import WaitlistForm from "@/components/WaitlistForm";
-import Footer from "@/components/Footer";
+
+const HowItWorks = dynamic(() => import("@/components/HowItWorks"));
+const ProductMockup = dynamic(() => import("@/components/ProductMockup"));
+const PlatformCoverage = dynamic(() => import("@/components/PlatformCoverage"));
+const Metrics = dynamic(() => import("@/components/Metrics"));
+const UseCases = dynamic(() => import("@/components/UseCases"));
+const WaitlistForm = dynamic(() => import("@/components/WaitlistForm"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
