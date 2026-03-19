@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import WaitlistForm from "./WaitlistForm";
+import NetworkGraph from "./NetworkGraph";
 
 export default function Hero() {
   const { scrollY } = useScroll();
@@ -9,7 +10,7 @@ export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 overflow-hidden">
       {/* Animated gradient background */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -24,36 +25,48 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary leading-tight mb-6"
-        >
-          Find influencers your competitors already trust
-        </motion.h1>
+      <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* Left: Text + CTA */}
+        <div className="text-center lg:text-left">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary leading-tight mb-6"
+          >
+            Find influencers your competitors already trust
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-lg sm:text-xl text-text-secondary mb-8 max-w-2xl mx-auto"
-        >
-          InfluenceMap crawls brand pages across Instagram, YouTube, TikTok & X
-          to surface creators who&apos;ve done sponsored content in your product
-          category. Stop cold-DMing. Start with proof.
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="text-lg sm:text-xl text-text-secondary mb-8 max-w-xl mx-auto lg:mx-0"
+          >
+            InfluenceMap crawls brand pages across Instagram, YouTube, TikTok & X
+            to surface creators who&apos;ve done sponsored content in your product
+            category. Stop cold-DMing. Start with proof.
+          </motion.p>
 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <WaitlistForm variant="hero" />
+            <p className="text-text-muted text-sm mt-4">
+              Join 2,400+ brand marketers on the waitlist
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Right: Network Graph (desktop only) */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <WaitlistForm variant="hero" />
-          <p className="text-text-muted text-sm mt-4">
-            Join 2,400+ brand marketers on the waitlist
-          </p>
+          <NetworkGraph />
         </motion.div>
       </div>
 
