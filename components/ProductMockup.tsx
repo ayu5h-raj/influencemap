@@ -6,7 +6,7 @@ import { influencers, categories, crawledBrands, sortOptions } from "@/lib/data"
 import InfluencerCard from "./InfluencerCard";
 import ScrollReveal from "./ScrollReveal";
 
-const SEARCH_QUERY = "Laptop reviewers, India, 100K+ followers";
+const SEARCH_QUERY = "Find me laptop reviewers in India with over 100K followers";
 const TYPE_SPEED = 45; // ms per character
 const SCAN_BRANDS = ["Dell", "HP", "ASUS", "Acer", "Apple", "Samsung"];
 
