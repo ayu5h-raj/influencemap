@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: #0A0A0C;
+  --color-surface: #141417;
+  --color-surface-border: rgba(255, 255, 255, 0.06);
+  --color-brand-red: #E24B4A;
+  --color-brand-pink: #D4537E;
+  --color-success: #1D9E75;
+  --color-text-primary: #EEEEE8;
+  --color-text-secondary: #A0A09A;
+  --color-text-muted: #66665F;
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+}
+
+:root {
+  --bg: #0A0A0C;
+  --surface: #141417;
+  --brand-red: #E24B4A;
+  --brand-pink: #D4537E;
+  --success: #1D9E75;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: #EEEEE8;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
