@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-19
 **Status:** Approved
-**Tech stack:** Next.js 14+ (App Router), TypeScript, Tailwind CSS v4, Framer Motion, Space Grotesk + Space Mono fonts
+**Tech stack:** Next.js 14+ (App Router), TypeScript, Tailwind CSS v3, Framer Motion, Space Grotesk + Space Mono fonts
 
 ---
 
@@ -108,7 +108,7 @@ Composes sections in order:
 - **Headline:** "Find influencers your competitors already trust" — Space Grotesk bold, large
 - **Subheadline:** Full value prop paragraph in text-secondary
 - **WaitlistForm** with variant="hero"
-- **Trust line:** "Join 2,400+ brand marketers on the waitlist" in text-muted
+- **Trust line:** "Join 2,400+ brand marketers on the waitlist" in text-muted. Note: the `/joined` page position number (2400–2599) is derived from this same baseline — if the trust line number changes, update the position range accordingly.
 - **Scroll indicator:** Animated chevron at bottom, fades out on scroll via `useScroll`
 
 ### 4. WaitlistForm
@@ -118,7 +118,7 @@ Shared between hero and bottom CTA. Props: `variant: "hero" | "bottom"`.
 - Email input + submit button in a single row
 - Client-side email regex validation
 - Button states: idle → loading (spinner) → success (morphs to checkmark via Framer Motion)
-- On success: redirect to `/joined` after 1.5s delay
+- **Success flow sequence:** API responds → button morphs to checkmark (0.5s animation) → hold checkmark for 1s → redirect to `/joined`. Total delay ~1.5s after API response.
 - Bottom variant has different heading copy: "Be first to search. Get early access when we launch." + spam disclaimer
 
 ### 5. HowItWorks
@@ -184,6 +184,16 @@ Behavior:
 | Dave Lee | @Dave2D | 4.2M | YouTube | 6.1% | 89 | LG, Framework, dbrand, Anker |
 | Trakin Tech | @TrakinTech | 12.5M | YouTube, Instagram | 3.9% | 86 | Realme, ASUS, Boat, Samsung |
 
+**Extended data for expanded state (hardcoded per influencer):**
+
+| Handle | Avg Views | Rate Range | Niche | Recent Sponsored Post |
+|--------|-----------|------------|-------|----------------------|
+| @Mrwhosetheboss | 3.2M | $25K–$50K | Consumer Tech | "Is the Galaxy S25 Ultra Worth It?" |
+| @TechnicalGuruji | 1.8M | $15K–$35K | Tech Reviews (Hindi) | "HP Spectre x360 — Best Laptop of 2026?" |
+| @iJustine | 1.1M | $20K–$45K | Lifestyle Tech | "My Entire Apple Setup Tour" |
+| @Dave2D | 2.4M | $18K–$40K | Premium Tech | "Framework Laptop 16 — 6 Months Later" |
+| @TrakinTech | 1.5M | $10K–$25K | Budget Tech (Hindi) | "ASUS ROG Phone — Gaming Beast?" |
+
 **Mobile:** Cards stack full-width, platform badges wrap, browser chrome simplified (no URL bar).
 
 ### 7. PlatformCoverage
@@ -196,7 +206,7 @@ Behavior:
 Platform details:
 - **Instagram:** Paid partnership labels, tagged brand posts, story mentions, collab posts
 - **YouTube:** Sponsored segments, description affiliate links, branded integrations, product placements
-- **TikTok:** Branded content toggles, hashtag sponsorships, duet collabs
+- **TikTok:** Branded content toggles, hashtag sponsorships, duet collabs, creator marketplace posts
 - **X / Twitter:** Sponsored tweets, brand ambassador threads, product launch tweets
 
 ### 8. Metrics
@@ -233,8 +243,11 @@ Platform details:
 - **Heading:** "You're on the list!"
 - **Copy:** "We'll reach out when it's your turn. In the meantime, share InfluenceMap with your network to move up the queue."
 - **Position:** Client-side generated: `Math.floor(Math.random() * 200) + 2400`, displayed as "#2,4XX"
-- **Share buttons:** Twitter (pre-filled tweet), LinkedIn (share URL), Copy link (clipboard + "Copied!" toast)
-- **Referral link:** `influencemap.com/ref/{random-6-chars}` — cosmetic only
+- **Share buttons:**
+  - Twitter/X: Pre-filled tweet text: "I just joined the @InfluenceMap waitlist — an AI tool that finds influencers by crawling competitor brand deals. Check it out:" + URL
+  - LinkedIn: Share URL pointing to landing page root
+  - Copy link: Copies referral link to clipboard, shows "Copied!" toast for 2s
+- **Referral link:** `influencemap.com/ref/{random-6-chars}` — cosmetic only, no tracking backend
 
 ---
 
@@ -242,7 +255,7 @@ Platform details:
 
 ### ScrollReveal
 
-Wraps children in `motion.div` with `useInView` trigger. Props: `delay` (number), `direction` ("up" | "left" | "right"). Default: fade-up with 0px offset. Used by every section for consistent reveal behavior.
+Wraps children in `motion.div` with `useInView` trigger. Props: `delay` (number), `direction` ("up" | "left" | "right"). Default: fade-up with 24px Y offset (translates from 24px below to 0). Used by every section for consistent reveal behavior.
 
 ### UI Primitives
 
@@ -260,7 +273,12 @@ Wraps children in `motion.div` with `useInView` trigger. Props: `delay` (number)
 - Validates email format with regex
 - Checks for duplicates via `lib/waitlist.ts`
 - Appends to `waitlist.json` in project root
-- Returns: `{ success: true, position: number }` or `{ error: string }`
+- **Response codes:**
+  - 200: `{ success: true, position: number }` — email added or already exists
+  - 400: `{ error: "Invalid email format" }` — validation failed
+  - 409: `{ error: "Email already registered" }` — duplicate submission
+  - 500: `{ error: "Something went wrong" }` — file write failure
+- **Note:** No rate limiting for MVP. This is a prototype endpoint — the JSON file approach does not persist on Vercel's serverless filesystem. Swap to a database before production deployment.
 
 ### `lib/waitlist.ts`
 
@@ -268,6 +286,7 @@ Wraps children in `motion.div` with `useInView` trigger. Props: `delay` (number)
 - `hasEmail(email: string): Promise<boolean>`
 - Reads/writes `waitlist.json` using `fs/promises`
 - File format: `{ emails: [{ email: string, joinedAt: string }] }`
+- **Concurrency:** Uses atomic write (write to temp file, then rename) to avoid corruption from concurrent requests. This is prototype-grade — sufficient for local dev and low-traffic demos, not for production.
 
 ---
 
@@ -303,7 +322,25 @@ All animations use Framer Motion. No external animation libraries.
 
 ## SEO
 
+- Uses Next.js App Router `metadata` export in `layout.tsx` (not the legacy `<Head>` component)
 - Title: "InfluenceMap — Find influencers your competitors already trust"
 - Description: "InfluenceMap crawls brand pages across Instagram, YouTube, TikTok & X to surface creators who've done sponsored content in your product category."
 - OG image: can be added later
 - Proper heading hierarchy: single H1 per page
+
+---
+
+## Accessibility
+
+- **Heading hierarchy:** Single `<h1>` per page, logical `<h2>`/`<h3>` nesting
+- **Keyboard navigation:** Influencer cards expandable via Enter/Space, filter pills and sort buttons focusable with visible focus rings
+- **ARIA:** Expandable cards use `aria-expanded`, `role="button"`, and `aria-controls`. Platform badges have `aria-label` for screen readers.
+- **Reduced motion:** All Framer Motion animations respect `prefers-reduced-motion: reduce` — wrap animation variants in a `useReducedMotion()` check, falling back to instant transitions. The CSS gradient animation uses `@media (prefers-reduced-motion: reduce)` to disable.
+- **Color contrast:** All text meets WCAG AA. text-primary (#EEEEE8) on bg (#0A0A0C) = 18.3:1. text-secondary (#A0A09A) on bg = 8.1:1. text-muted (#66665F) on bg = 4.5:1 (meets AA for large text; used only for labels/captions).
+- **Form inputs:** Email input has associated `<label>` (visually hidden if needed), error messages linked via `aria-describedby`
+
+---
+
+## `/joined` Direct Access
+
+If a user navigates directly to `/joined` without submitting the form, the page still renders with a random position number. This is intentional — there's no server-side session state to verify, and showing the confirmation is harmless. The referral link and share buttons are cosmetic-only (no tracking backend).
