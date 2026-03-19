@@ -1,7 +1,7 @@
 import { kv } from "@vercel/kv";
 
 const WAITLIST_KEY = "waitlist:emails";
-const POSITION_OFFSET = 2400;
+const POSITION_OFFSET = 0;
 
 export async function hasEmail(email: string): Promise<boolean> {
   const exists = await kv.sismember(WAITLIST_KEY, email.toLowerCase());
