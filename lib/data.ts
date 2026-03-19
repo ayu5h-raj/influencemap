@@ -12,6 +12,7 @@ export interface Influencer {
   handle: string;
   initials: string;
   avatarColor: string;
+  avatarImage: string;
   followers: string;
   platforms: Platform[];
   engagement: string;
@@ -29,6 +30,7 @@ export const influencers: Influencer[] = [
     handle: "@Mrwhosetheboss",
     initials: "AM",
     avatarColor: "#6366F1",
+    avatarImage: "/avatars/mrwhosetheboss.jpg",
     followers: "19.2M",
     platforms: ["YouTube", "Instagram"],
     engagement: "5.8%",
@@ -44,6 +46,7 @@ export const influencers: Influencer[] = [
     handle: "@TechnicalGuruji",
     initials: "GC",
     avatarColor: "#F59E0B",
+    avatarImage: "/avatars/technicalguruji.jpg",
     followers: "23.8M",
     platforms: ["YouTube", "Instagram"],
     engagement: "3.2%",
@@ -59,6 +62,7 @@ export const influencers: Influencer[] = [
     handle: "@iJustine",
     initials: "iJ",
     avatarColor: "#EC4899",
+    avatarImage: "/avatars/ijustine.jpg",
     followers: "7.1M",
     platforms: ["YouTube", "TikTok", "Instagram"],
     engagement: "4.5%",
@@ -74,6 +78,7 @@ export const influencers: Influencer[] = [
     handle: "@Dave2D",
     initials: "DL",
     avatarColor: "#10B981",
+    avatarImage: "/avatars/dave2d.jpg",
     followers: "4.2M",
     platforms: ["YouTube"],
     engagement: "6.1%",
@@ -89,6 +94,7 @@ export const influencers: Influencer[] = [
     handle: "@TrakinTech",
     initials: "TT",
     avatarColor: "#8B5CF6",
+    avatarImage: "/avatars/trakintech.jpg",
     followers: "12.5M",
     platforms: ["YouTube", "Instagram"],
     engagement: "3.9%",

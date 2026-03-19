@@ -74,12 +74,11 @@ export default function InfluencerCard({
         aria-controls={`card-detail-${index}`}
       >
         {/* Avatar */}
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-          style={{ backgroundColor: influencer.avatarColor }}
-        >
-          {influencer.initials}
-        </div>
+        <img
+          src={influencer.avatarImage}
+          alt={influencer.name}
+          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+        />
 
         {/* Info */}
         <div className="flex-1 min-w-0">
