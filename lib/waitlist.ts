@@ -1,44 +1,17 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { kv } from "@vercel/kv";
 
-const WAITLIST_PATH = path.join(process.cwd(), "waitlist.json");
-
-interface WaitlistEntry {
-  email: string;
-  joinedAt: string;
-}
-
-interface WaitlistData {
-  emails: WaitlistEntry[];
-}
-
-async function readWaitlist(): Promise<WaitlistData> {
-  try {
-    const data = await fs.readFile(WAITLIST_PATH, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return { emails: [] };
-  }
-}
-
-async function writeWaitlist(data: WaitlistData): Promise<void> {
-  const tmpPath = path.join(path.dirname(WAITLIST_PATH), `.waitlist-${Date.now()}.tmp.json`);
-  await fs.writeFile(tmpPath, JSON.stringify(data, null, 2));
-  await fs.rename(tmpPath, WAITLIST_PATH);
-}
+const WAITLIST_KEY = "waitlist:emails";
+const POSITION_OFFSET = 2400;
 
 export async function hasEmail(email: string): Promise<boolean> {
-  const data = await readWaitlist();
-  return data.emails.some(
-    (entry) => entry.email.toLowerCase() === email.toLowerCase()
-  );
+  const exists = await kv.sismember(WAITLIST_KEY, email.toLowerCase());
+  return exists === 1;
 }
 
 export async function addEmail(
   email: string
 ): Promise<{ position: number }> {
-  const data = await readWaitlist();
-  data.emails.push({ email: email.toLowerCase(), joinedAt: new Date().toISOString() });
-  await writeWaitlist(data);
-  return { position: data.emails.length + 2400 };
+  await kv.sadd(WAITLIST_KEY, email.toLowerCase());
+  const count = await kv.scard(WAITLIST_KEY);
+  return { position: (count ?? 0) + POSITION_OFFSET };
 }
