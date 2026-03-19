@@ -1,6 +1,5 @@
 import { promises as fs } from "fs";
 import path from "path";
-import os from "os";
 
 const WAITLIST_PATH = path.join(process.cwd(), "waitlist.json");
 
@@ -23,7 +22,7 @@ async function readWaitlist(): Promise<WaitlistData> {
 }
 
 async function writeWaitlist(data: WaitlistData): Promise<void> {
-  const tmpPath = path.join(os.tmpdir(), `waitlist-${Date.now()}.json`);
+  const tmpPath = path.join(path.dirname(WAITLIST_PATH), `.waitlist-${Date.now()}.tmp.json`);
   await fs.writeFile(tmpPath, JSON.stringify(data, null, 2));
   await fs.rename(tmpPath, WAITLIST_PATH);
 }

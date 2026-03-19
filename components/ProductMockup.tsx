@@ -53,7 +53,6 @@ export default function ProductMockup() {
                   readOnly
                   value="Laptop reviewers, India, 100K+ followers"
                   className="w-full bg-bg border border-surface-border rounded-lg pl-10 pr-4 py-2.5 text-sm text-text-primary cursor-default focus:outline-none focus:ring-2 focus:ring-brand-red"
-                  tabIndex={-1}
                 />
               </div>
 

@@ -31,9 +31,13 @@ export default function JoinedPage() {
   const shareUrl = encodeURIComponent("https://influencemap.com");
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(`https://${referralLink}`);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(`https://${referralLink}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API unavailable (non-HTTPS or unsupported browser)
+    }
   };
 
   return (
