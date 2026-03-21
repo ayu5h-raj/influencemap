@@ -8,7 +8,7 @@ interface GraphNode {
   sublabel?: string;
   x: number;
   y: number;
-  type: "brand" | "competitor" | "influencer";
+  type: "brand" | "category" | "influencer";
   image?: string;
   color?: string;
   platformColor?: string;
@@ -21,29 +21,29 @@ interface GraphEdge {
 }
 
 const nodes: GraphNode[] = [
-  // Your brand (left)
+  // Your search (left)
   {
     id: "brand",
-    label: "Your Brand",
+    label: "Your Search",
     x: 60,
     y: 250,
     type: "brand",
     color: "#E24B4A",
   },
-  // Competitor nodes (middle)
+  // Category nodes (middle)
   {
     id: "dell",
-    label: "Dell",
+    label: "Tech",
     x: 280,
     y: 120,
-    type: "competitor",
+    type: "category",
   },
   {
     id: "apple",
-    label: "Apple",
+    label: "Lifestyle",
     x: 280,
     y: 380,
-    type: "competitor",
+    type: "category",
   },
   // Influencer nodes (right)
   {
@@ -163,10 +163,10 @@ function BrandNode({ node, delay }: { node: GraphNode; delay: number }) {
         stroke={node.color}
         strokeWidth="2"
       />
-      {/* Building icon */}
+      {/* Search/AI icon */}
       <g transform={`translate(${node.x - 10}, ${node.y - 10})`}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={node.color} strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
       </g>
       <text
@@ -182,39 +182,32 @@ function BrandNode({ node, delay }: { node: GraphNode; delay: number }) {
   );
 }
 
-const competitorLogos: Record<string, React.ReactNode> = {
-  // Dell logo — tilted square with "DELL" text
+const categoryIcons: Record<string, React.ReactNode> = {
+  // Tech category — chip/cpu icon
   dell: (
     <g>
       <circle cx="0" cy="0" r="24" fill="#141417" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
-      <g transform="translate(-10, -5) scale(0.85)">
-        <text
-          x="12"
-          y="12"
-          textAnchor="middle"
-          fill="#007DB8"
-          style={{ fontSize: "12px", fontWeight: 700, fontFamily: "var(--font-space-grotesk)", letterSpacing: "-0.5px" }}
-        >
-          DELL
-        </text>
+      <g transform="translate(-9, -9)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A0A09A" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm3-10.5h4.5v4.5h-4.5V9z" />
+        </svg>
       </g>
     </g>
   ),
-  // Apple logo
+  // Lifestyle category — sparkles icon
   apple: (
     <g>
       <circle cx="0" cy="0" r="24" fill="#141417" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
-      <g transform="translate(-8, -10) scale(0.65)">
-        <path
-          d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.81-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
-          fill="#A2AAAD"
-        />
+      <g transform="translate(-9, -9)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A0A09A" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+        </svg>
       </g>
     </g>
   ),
 };
 
-function CompetitorNode({ node, delay }: { node: GraphNode; delay: number }) {
+function CategoryNode({ node, delay }: { node: GraphNode; delay: number }) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -228,7 +221,7 @@ function CompetitorNode({ node, delay }: { node: GraphNode; delay: number }) {
       }
     >
       <g transform={`translate(${node.x}, ${node.y})`}>
-        {competitorLogos[node.id] || competitorLogos.dell}
+        {categoryIcons[node.id] || categoryIcons.dell}
       </g>
       <text
         x={node.x}
@@ -336,9 +329,9 @@ export default function NetworkGraph() {
           if (node.type === "brand") {
             return <BrandNode key={node.id} node={node} delay={0.1} />;
           }
-          if (node.type === "competitor") {
+          if (node.type === "category") {
             return (
-              <CompetitorNode
+              <CategoryNode
                 key={node.id}
                 node={node}
                 delay={node.id === "dell" ? 0.5 : 0.6}

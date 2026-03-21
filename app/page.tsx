@@ -5,6 +5,7 @@ const HowItWorks = dynamic(() => import("@/components/HowItWorks"));
 const ProductMockup = dynamic(() => import("@/components/ProductMockup"));
 const Metrics = dynamic(() => import("@/components/Metrics"));
 const UseCases = dynamic(() => import("@/components/UseCases"));
+const FAQ = dynamic(() => import("@/components/FAQ"));
 const WaitlistForm = dynamic(() => import("@/components/WaitlistForm"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
@@ -16,6 +17,7 @@ export default function Home() {
       <ProductMockup />
       <Metrics />
       <UseCases />
+      <FAQ />
       <section className="py-24 px-4">
         <WaitlistForm variant="bottom" />
       </section>

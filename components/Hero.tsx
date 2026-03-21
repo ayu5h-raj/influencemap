@@ -34,7 +34,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary leading-tight mb-6"
           >
-            Find influencers your competitors already trust
+            Find the perfect influencers for your brand
           </motion.h1>
 
           <motion.p
@@ -43,9 +43,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-lg sm:text-xl text-text-secondary mb-8 max-w-xl mx-auto lg:mx-0"
           >
-            InfluenceMap crawls brand pages across Instagram, YouTube & X
-            to surface creators who&apos;ve done sponsored content in your product
-            category. Stop cold-DMing. Start with proof.
+            InfluenceMap uses AI to find creators who are the perfect fit
+            for your brand — matched by niche, audience, engagement, and
+            proven track record. Stop guessing. Start with data.
           </motion.p>
 
           <motion.div

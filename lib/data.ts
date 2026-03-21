@@ -1,9 +1,8 @@
-export type Platform = "YouTube" | "Instagram" | "X";
+export type Platform = "YouTube" | "Instagram";
 
 export const platformColors: Record<Platform, string> = {
   YouTube: "#FF0000",
   Instagram: "#E4405F",
-  X: "#1DA1F2",
 };
 
 export interface Influencer {
@@ -18,7 +17,6 @@ export interface Influencer {
   score: number;
   pastBrands: string[];
   avgViews: string;
-  rateRange: string;
   niche: string;
   recentPost: string;
 }
@@ -36,7 +34,6 @@ export const influencers: Influencer[] = [
     score: 97,
     pastBrands: ["Samsung", "OnePlus", "Nothing", "Qualcomm"],
     avgViews: "3.2M",
-    rateRange: "$25K–$50K",
     niche: "Consumer Tech",
     recentPost: "Is the Galaxy S25 Ultra Worth It?",
   },
@@ -52,7 +49,6 @@ export const influencers: Influencer[] = [
     score: 94,
     pastBrands: ["HP", "Dell", "Asus", "Xiaomi"],
     avgViews: "1.8M",
-    rateRange: "$15K–$35K",
     niche: "Tech Reviews (Hindi)",
     recentPost: "HP Spectre x360 — Best Laptop of 2026?",
   },
@@ -68,7 +64,6 @@ export const influencers: Influencer[] = [
     score: 91,
     pastBrands: ["Apple", "Intel", "Razer", "Adobe"],
     avgViews: "1.1M",
-    rateRange: "$20K–$45K",
     niche: "Lifestyle Tech",
     recentPost: "My Entire Apple Setup Tour",
   },
@@ -84,7 +79,6 @@ export const influencers: Influencer[] = [
     score: 89,
     pastBrands: ["LG", "Framework", "dbrand", "Anker"],
     avgViews: "2.4M",
-    rateRange: "$18K–$40K",
     niche: "Premium Tech",
     recentPost: "Framework Laptop 16 — 6 Months Later",
   },
@@ -100,7 +94,6 @@ export const influencers: Influencer[] = [
     score: 86,
     pastBrands: ["Realme", "ASUS", "Boat", "Samsung"],
     avgViews: "1.5M",
-    rateRange: "$10K–$25K",
     niche: "Budget Tech (Hindi)",
     recentPost: "ASUS ROG Phone — Gaming Beast?",
   },
@@ -108,7 +101,6 @@ export const influencers: Influencer[] = [
 
 export const categories = ["Laptops", "Smartphones", "Gaming", "Audio", "Wearables"];
 
-export const crawledBrands = ["Dell", "HP", "ASUS", "Acer", "Apple", "Samsung"];
 
 export const sortOptions = ["Best match", "Followers", "Engagement"] as const;
 
@@ -142,39 +134,29 @@ export const platformCoverage: PlatformCoverageItem[] = [
       "Product placements",
     ],
   },
-  {
-    name: "X / Twitter",
-    platform: "X",
-    color: "#1DA1F2",
-    detections: [
-      "Sponsored tweets",
-      "Brand ambassador threads",
-      "Product launch tweets",
-    ],
-  },
 ];
 
 export const metrics = [
-  { value: 4000000, suffix: "+", label: "Influencer profiles indexed", display: "4M" },
-  { value: 50000, suffix: "+", label: "Brand deals tracked", display: "50K" },
-  { value: 200, suffix: "+", label: "Product categories", display: "200" },
-  { value: 15, suffix: "s", label: "Average search time", display: "15" },
+  { value: 4000000, suffix: "+", label: "Creator profiles analyzed", display: "4M" },
+  { value: 95, suffix: "%", label: "Match accuracy rate", display: "95" },
+  { value: 200, suffix: "+", label: "Niches & categories", display: "200" },
+  { value: 15, suffix: "s", label: "Average time to results", display: "15" },
 ];
 
 export const useCases = [
   {
     title: "Brand marketing teams",
     description:
-      "Find creators who've proven they can sell products in your category. No more guessing based on follower counts alone.",
+      "Find creators who genuinely fit your brand — matched by niche, audience demographics, and engagement quality. Not just follower counts.",
   },
   {
     title: "Agencies",
     description:
-      "Manage influencer discovery across multiple clients and categories. One search, every platform.",
+      "Discover the right influencers across multiple clients and categories in seconds. One search, instant results.",
   },
   {
     title: "D2C startups",
     description:
-      "Compete with big brands by finding the same influencers — or discovering hidden gems they missed.",
+      "Find high-impact creators in your niche without the enterprise budget. Discover hidden gems that bigger brands overlook.",
   },
 ];

@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
-import { influencers, categories, crawledBrands, sortOptions } from "@/lib/data";
+import { influencers, categories, sortOptions } from "@/lib/data";
 import InfluencerCard from "./InfluencerCard";
 import ScrollReveal from "./ScrollReveal";
 
 const SEARCH_QUERY = "Find me laptop reviewers in India with over 100K followers";
 const TYPE_SPEED = 45; // ms per character
-const SCAN_BRANDS = ["Dell", "HP", "ASUS", "Acer", "Apple", "Samsung"];
+const SCAN_STEPS = ["Analyzing niche relevance", "Checking engagement quality", "Matching audience fit", "Scoring creator profiles", "Ranking top results"];
 
 type Phase = "idle" | "typing" | "scanning" | "results";
 
@@ -49,7 +49,7 @@ export default function ProductMockup() {
     const interval = setInterval(() => {
       setScanIndex(idx);
       idx++;
-      if (idx >= SCAN_BRANDS.length) {
+      if (idx >= SCAN_STEPS.length) {
         clearInterval(interval);
         setTimeout(() => {
           setShowFilters(true);
@@ -82,7 +82,7 @@ export default function ProductMockup() {
       // Skip animation, show everything immediately
       setTypedText(SEARCH_QUERY);
       setShowFilters(true);
-      setScanIndex(SCAN_BRANDS.length - 1);
+      setScanIndex(SCAN_STEPS.length - 1);
       setVisibleCards(influencers.length);
       setPhase("results");
       return;
@@ -108,7 +108,7 @@ export default function ProductMockup() {
             See it in action
           </h2>
           <p className="text-text-secondary text-center mb-12 max-w-xl mx-auto">
-            Type what you&apos;re looking for. We&apos;ll scan every competitor and surface the creators.
+            Describe what you need in plain language. Our AI delivers ranked, data-backed results.
           </p>
         </ScrollReveal>
 
@@ -165,13 +165,11 @@ export default function ProductMockup() {
                       transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
                     />
                     <div className="text-sm">
-                      <span className="text-text-secondary">Scanning competitors</span>
-                      <span className="text-text-muted mx-1.5">—</span>
                       <span className="font-mono text-brand-red">
-                        {scanIndex >= 0 ? SCAN_BRANDS[Math.min(scanIndex, SCAN_BRANDS.length - 1)] : "..."}
+                        {scanIndex >= 0 ? SCAN_STEPS[Math.min(scanIndex, SCAN_STEPS.length - 1)] : "..."}
                       </span>
                       <span className="text-text-muted ml-2 text-xs">
-                        {scanIndex >= 0 ? `${scanIndex + 1}/${SCAN_BRANDS.length}` : ""}
+                        {scanIndex >= 0 ? `${scanIndex + 1}/${SCAN_STEPS.length}` : ""}
                       </span>
                     </div>
                   </motion.div>
@@ -203,7 +201,7 @@ export default function ProductMockup() {
                       ))}
                     </div>
 
-                    {/* Crawled from strip */}
+                    {/* Analysis strip */}
                     <div className="flex items-center gap-3 mb-4 text-xs text-text-muted overflow-x-auto pb-1">
                       <div className="flex items-center gap-1.5 flex-shrink-0">
                         <motion.div
@@ -211,13 +209,15 @@ export default function ProductMockup() {
                           animate={{ opacity: [1, 0.4, 1] }}
                           transition={{ repeat: Infinity, duration: 2 }}
                         />
-                        <span className="font-medium text-success">Live crawl</span>
+                        <span className="font-medium text-success">AI matching</span>
                       </div>
                       <span className="text-text-muted/50">|</span>
-                      <span className="flex-shrink-0">Crawled from:</span>
-                      {crawledBrands.map((brand) => (
-                        <span key={brand} className="font-mono flex-shrink-0">{brand}</span>
-                      ))}
+                      <span className="flex-shrink-0">Analyzed:</span>
+                      <span className="font-mono flex-shrink-0">4.2M profiles</span>
+                      <span className="text-text-muted/50">·</span>
+                      <span className="font-mono flex-shrink-0">50K+ partnerships</span>
+                      <span className="text-text-muted/50">·</span>
+                      <span className="font-mono flex-shrink-0">200+ categories</span>
                     </div>
 
                     {/* Sort bar */}

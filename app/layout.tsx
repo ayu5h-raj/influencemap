@@ -16,13 +16,13 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "InfluenceMap — Find influencers your competitors already trust",
+  title: "InfluenceMap — Find the perfect influencers for your brand",
   description:
-    "InfluenceMap crawls brand pages across Instagram, YouTube & X to surface creators who've done sponsored content in your product category.",
+    "InfluenceMap uses AI to find creators who are the perfect fit for your brand — matched by niche, audience, engagement, and proven track record.",
   openGraph: {
-    title: "InfluenceMap — Find influencers your competitors already trust",
+    title: "InfluenceMap — Find the perfect influencers for your brand",
     description:
-      "InfluenceMap crawls brand pages across Instagram, YouTube & X to surface creators who've done sponsored content in your product category.",
+      "InfluenceMap uses AI to find creators who are the perfect fit for your brand — matched by niche, audience, engagement, and proven track record.",
     type: "website",
   },
 };

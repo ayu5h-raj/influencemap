@@ -11,7 +11,7 @@ function JoinedContent() {
   const position = searchParams.get("p") ? Number(searchParams.get("p")) : null;
 
   const shareText = encodeURIComponent(
-    "I just joined the @InfluenceMap waitlist \u2014 an AI tool that finds influencers by crawling competitor brand deals. Check it out:"
+    "I just joined the @InfluenceMap waitlist \u2014 an AI tool that finds the perfect influencers for your brand using intelligent matching. Check it out:"
   );
 
   const shareUrl = encodeURIComponent("https://influencemap.vercel.app");

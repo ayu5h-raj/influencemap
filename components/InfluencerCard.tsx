@@ -163,14 +163,10 @@ export default function InfluencerCard({
               </div>
 
               {/* Detail grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
                 <div>
                   <span className="text-text-muted text-xs">Avg views</span>
                   <div className="font-mono text-sm text-text-primary">{influencer.avgViews}</div>
-                </div>
-                <div>
-                  <span className="text-text-muted text-xs">Est. rate</span>
-                  <div className="font-mono text-sm text-text-primary">{influencer.rateRange}</div>
                 </div>
                 <div>
                   <span className="text-text-muted text-xs">Niche</span>

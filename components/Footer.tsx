@@ -16,9 +16,6 @@ export default function Footer() {
             Terms
           </a>
           <a href="#" className="hover:text-text-secondary transition-colors">
-            Twitter / X
-          </a>
-          <a href="#" className="hover:text-text-secondary transition-colors">
             LinkedIn
           </a>
         </div>
